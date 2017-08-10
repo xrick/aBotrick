@@ -23,10 +23,18 @@ public class BasicLuisDialog : LuisDialog<object>
 
     // Go to https://luis.ai and create a new intent, then train/publish your luis app.
     // Finally replace "MyIntent" with the name of your newly created intent in the following handler
-    [LuisIntent("MyIntent")]
-    public async Task MyIntent(IDialogContext context, LuisResult result)
+    [LuisIntent("Note.AddToNote")]
+    public async TaskIntent(IDialogContext context, LuisResult result)
     {
-        await context.PostAsync($"You have reached the MyIntent intent. You said: {result.Query}"); //
+        await context.PostAsync($"I heard your request and you say: {result.Query}"); //
+        await context.PostAsyc("I will get it don ASAP");
+        context.Wait(MessageReceived);
+    }
+
+    [LuisIntent("Translate.Translate")]
+    public async TaskIntent(IDialogContext context, LuisResult result)
+    {
+        await context.PostAsync($"Ok, let me translate for you, just wait: {result.Query}"); //
         context.Wait(MessageReceived);
     }
 }
